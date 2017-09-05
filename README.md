@@ -8,7 +8,7 @@ Here is an example of an information leak triggered in a sample vulnerable drive
 
 ## Tentative Roadmap
 
-- [x] Create handles using Device Interface GUIDs in addition to symbolic links.
+- [x] Create handles using Device Interface GUIDs in addition to symbolic links. [[GIF](https://i.imgur.com/R9WkgHG.gif)]
 - [ ] Persist requests to SQLite databases.
 - [ ] Apply filters to request history.
 - [ ] Integrate Kaitai Struct to define and view buffer structures ([inspired by](https://github.com/kaitai-io/kaitai_struct_webide/wiki/Features)).
