@@ -178,6 +178,12 @@ namespace ioctlpus
             byte[] inputBuffer = new byte[inputSize];
             MemSet(Marshal.UnsafeAddrOfPinnedArrayElement(inputBuffer, 0), 0, (int)hbInputLength);
 
+            for (int i = 0; i < inputSize; i++)
+                if (i < hbInputLength)
+                    inputBuffer[i] = ((DynamicByteProvider)hbInput.ByteProvider).ReadByte(i);
+                else
+                    inputBuffer[i] = 0;
+
             long hbOutputLength = ((DynamicByteProvider)hbOutput.ByteProvider).Length;
             byte[] outputBuffer = new byte[outputSize];
             MemSet(Marshal.UnsafeAddrOfPinnedArrayElement(outputBuffer, 0), 0, (int)hbOutputLength);
@@ -205,20 +211,24 @@ namespace ioctlpus
             newTx.ReturnValue = errorCode;
             newTx.BytesReturned = returnedBytes;
 
-            if (tlvRequestHistory.SelectedObject == null)
-            {
-                newTx.Parent = null;
-                requests.Add(newTx);
-            }
-            else
-            {
-                newTx.Parent = (Request)tlvRequestHistory.SelectedObject;
+            //if (tlvRequestHistory.SelectedObject == null)
+            //{
+            //    newTx.Parent = null;
+            //    requests.Add(newTx);
+            //}
+            //else
+            //{
+            //    newTx.Parent = (Request)tlvRequestHistory.SelectedObject;
 
-                if ((newTx.PreCallInput.SequenceEqual(newTx.Parent.PreCallInput)) && (newTx.Parent.Parent != null))
-                    newTx.Parent.Children.Add(newTx);
-                else
-                    newTx.Children.Add(newTx);
-            }
+            //    if ((newTx.PreCallInput.SequenceEqual(newTx.Parent.PreCallInput)) && (newTx.Parent.Parent != null))
+            //        newTx.Parent.Children.Add(newTx);
+            //    else
+            //        newTx.Children.Add(newTx);
+            //}
+
+            // Avoiding tree structure for now.
+            newTx.Parent = null;
+            requests.Add(newTx);
 
             tlvRequestHistory.HideSelection = false;
             tlvRequestHistory.SetObjects(requests);
@@ -238,12 +248,6 @@ namespace ioctlpus
             ((Request)tlvRequestHistory.SelectedObject).IsFavourite ^= true;
             tlvRequestHistory.SetObjects(requests);
         }
-
-        private struct OmniSmiPayload
-        {
-            public IntPtr memory;
-            public UInt32 size;
-        };
 
         private void btnOpenDB_Click(object sender, EventArgs e)
         {
