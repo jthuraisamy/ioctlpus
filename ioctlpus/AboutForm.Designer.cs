@@ -73,7 +73,6 @@
             this.olvComponents.AllColumns.Add(this.colComponent);
             this.olvComponents.AllColumns.Add(this.colAuthor);
             this.olvComponents.AllColumns.Add(this.colLicence);
-            this.olvComponents.CellEditUseWholeCell = false;
             this.olvComponents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colComponent,
             this.colAuthor,
