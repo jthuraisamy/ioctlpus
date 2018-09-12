@@ -1,4 +1,4 @@
-﻿using Be.Windows.Forms;
+using Be.Windows.Forms;
 using BrightIdeasSoftware;
 using Microsoft.Win32.SafeHandles;
 using System;
@@ -163,7 +163,7 @@ namespace ioctlpus
         {
             SafeFileHandle sfh = CreateFile(
                 tbDevicePath.Text,
-                0,
+                FileAccess.ReadWrite,
                 FileShare.ReadWrite,
                 IntPtr.Zero,
                 FileMode.Open,
