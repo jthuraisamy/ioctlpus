@@ -235,7 +235,7 @@ namespace ioctlpus
             tlvRequestHistory.Expand(newTx.Parent);
             tlvRequestHistory.Sort(tlvRequestHistory.GetColumn(3), SortOrder.Descending);
             
-            CloseHandle(sfh);
+            //CloseHandle(sfh);
             return;
         }
 
