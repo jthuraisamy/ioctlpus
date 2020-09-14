@@ -138,6 +138,9 @@ namespace ioctlpus
                 uint nOutBufferSize,
                 ref uint pBytesReturned,
                 IntPtr overlapped);
+            
+            [DllImport("kernel32.dll")]
+            public static extern bool CloseHandle(SafeFileHandle hObject);
 
             [DllImport("msvcrt.dll", EntryPoint = "memset", CallingConvention = CallingConvention.Cdecl, SetLastError = false)]
             public static extern IntPtr MemSet(IntPtr dest, int c, int count);
