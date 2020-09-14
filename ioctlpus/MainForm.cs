@@ -191,8 +191,7 @@ namespace ioctlpus
             uint ioctl = Convert.ToUInt32(tbIOCTL.Text, 16);
             DeviceIoControl(sfh, ioctl, inputBuffer, inputSize, outputBuffer, outputSize, ref returnedBytes, IntPtr.Zero);
             int errorCode = Marshal.GetLastWin32Error();
-            CloseHandle(sfh);
-
+            
             DynamicByteProvider requestData = new DynamicByteProvider(inputBuffer);
             hbInput.ByteProvider = requestData;
 
@@ -235,6 +234,8 @@ namespace ioctlpus
             tlvRequestHistory.SetObjects(requests);
             tlvRequestHistory.Expand(newTx.Parent);
             tlvRequestHistory.Sort(tlvRequestHistory.GetColumn(3), SortOrder.Descending);
+            
+            CloseHandle(sfh);
             return;
         }
 
